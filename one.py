@@ -3,8 +3,8 @@
 import sys
 
 from lexer.lexer import Lexer
-from exceptions.exceptions import EndOfFileErrorException, CompilerSyntaxErrorException, CompilerLexErrorException
-from parser.parser import Parser
+from errors import EndOfFileError, CompilerSyntaxError, CompilerLexError
+from parsers.parser import Parser
 
 def process_arguments():
     if len(sys.argv) != 2:
@@ -25,12 +25,12 @@ def main():
             parser = Parser(lex)
             parser.P()
 
-        except EndOfFileErrorException:
+        except EndOfFileError:
             print "Syntax error at line " + str(lex.line)
 
-        except CompilerSyntaxErrorException as e:
+        except CompilerSyntaxError as e:
             print e
-        except CompilerLexErrorException as e:
+        except CompilerLexError as e:
             print e
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
-from exceptions.exceptions import EndOfFileErrorException, CompilerSyntaxErrorException, CompilerLexErrorException
+
+from errors import EndOfFileError, CompilerSyntaxError, CompilerLexError
 from token import Word, Num, Type, ReservedWords
 from tag import Tag
 
@@ -25,7 +26,7 @@ class Lexer (object):
 
     def read_char(self):
         self.peek = self.filebuffer.read(1)
-        if not self.peek: raise EndOfFileErrorException
+        if not self.peek: raise EndOfFileError
 
     def read_and_check(self, expected):
         self.read_char()
@@ -82,7 +83,7 @@ class Lexer (object):
                 if self.read_and_check("t"):
                     return self.words["int"]
                 else:
-                    raise CompilerSyntaxErrorException(self.line)
+                    raise CompilerSyntaxError(self.line)
             else:
                 return self.get_token_for("i")
         elif self.peek == "f":
@@ -92,7 +93,7 @@ class Lexer (object):
                     self.read_and_check("t")):
                     return self.words["float"]
                 else:
-                    raise CompilerSyntaxErrorException(self.line)
+                    raise CompilerSyntaxError(self.line)
             else:
                 return self.get_token_for("f")
 
@@ -121,4 +122,4 @@ class Lexer (object):
 
             return self.get_token_for(b)
 
-        raise CompilerLexErrorException(self.line)
+        raise CompilerLexError(self.line)

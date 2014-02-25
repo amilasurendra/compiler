@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 
-class EndOfFileErrorException(Exception):
+class EndOfFileError(Exception):
     def __str__(self):
         return repr("End of File")
 
-class CompilerSyntaxErrorException(Exception):
+class CompilerSyntaxError(Exception):
 
     def __init__(self, line):
         self.line = line
@@ -12,7 +12,7 @@ class CompilerSyntaxErrorException(Exception):
     def __str__(self):
         return ("Syntax error at line " + str(self.line))
 
-class CompilerLexErrorException(Exception):
+class CompilerLexError (Exception):
 
     def __init__(self, line):
         self.line = line
@@ -20,3 +20,6 @@ class CompilerLexErrorException(Exception):
     def __str__(self):
         return ("Syntax error at line " + str(self.line))
 
+class TypeNarrowError (Exception):
+    def __str__(self):
+        return repr("Type narrowing!")

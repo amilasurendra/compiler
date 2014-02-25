@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
 from lexer.tag import Tag
-from exceptions.exceptions import CompilerSyntaxErrorException, EndOfFileErrorException
+from errors import CompilerSyntaxError, EndOfFileError
 
 class Parser (object):
     def __init__(self, lexer):
@@ -16,7 +16,7 @@ class Parser (object):
             self.move()
             return
         else:
-            raise CompilerSyntaxErrorException(self.lex.line)
+            raise CompilerSyntaxError(self.lex.line)
 
     def P(self):
         self.D()
@@ -28,7 +28,7 @@ class Parser (object):
         self.match(Tag.END)
         try:
             self.D()
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             pass
 
     def B(self):
@@ -41,7 +41,7 @@ class Parser (object):
     def N1(self):
         try:
             self.match(Tag.COMMA)
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             return
 
         self.match(Tag.ID)
@@ -51,18 +51,18 @@ class Parser (object):
         self.S()
         try:
             self.match(Tag.END)
-        except EndOfFileErrorException:
+        except EndOfFileError:
             pass
 
         try:
             self.L()
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             pass
 
     def S(self):
         try:
             self.match(Tag.ID)
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             self.E()
             return
 
@@ -76,7 +76,7 @@ class Parser (object):
     def E1(self):
         try:
             self.match(Tag.ADD)
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             return
 
         self.T()
@@ -89,7 +89,7 @@ class Parser (object):
     def T1(self):
         try:
             self.match(Tag.MUL)
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             return
 
         self.F()
@@ -98,10 +98,10 @@ class Parser (object):
     def F(self):
         try:
             self.match(Tag.OPEN_PARAN)
-        except CompilerSyntaxErrorException:
+        except CompilerSyntaxError:
             try:
                 self.match(Tag.NUM)
-            except CompilerSyntaxErrorException:
+            except CompilerSyntaxError:
                 self.match(Tag.ID)
             return
 

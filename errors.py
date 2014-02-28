@@ -22,4 +22,4 @@ class CompilerLexError (Exception):
 
 class TypeNarrowError (Exception):
     def __str__(self):
-        return repr("Type narrowing!")
+        return "Error: Type narrowing conversions not allowed."

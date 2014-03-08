@@ -130,6 +130,7 @@ class TCParser (object):
         self.match(Tag.CLOSE_PARAN)
         return node
 
+    #Get the leaf for the given token
     def get_leaf(self, token):
         for i in self.node_list:
             if type(i) == Leaf and str(i.token) == str(token):
@@ -139,6 +140,7 @@ class TCParser (object):
         self.node_list.append(node)
         return node
 
+    #Get the node for the given token
     def get_node(self, op, l, r):
         for i in self.node_list:
             if (type(i) == Node and

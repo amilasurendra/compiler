@@ -1,0 +1,34 @@
+About
+=====
+This is a modified version of [asankarc]'s compiler. The tasks performed by each of the files are listed as follows.
+
+ - one.py - A recursive descent parser that can parse the below grammar.
+ - two.py - An extension of the one.py's code which transforms
+the specified expression list into postfix notation.
+ - three.py - A simple stack based machine that can evaluate the postfix notation and execute the postfix notations.
+ - four.py - An extension of the two.py's code that generates the three address code representation.
+ - five.py - An extension of the four.py's code that performs type checks and does a DAG optimization.
+
+Grammar
+=======
+
+- P → D L
+- D → B N ; D | B N ;
+- B → int | float
+- N → N , id | id
+- L → S ; L | S ;
+- S → id = E | E
+- E → E + T | T
+- T → T × F | F
+- F → ( E ) | num | id
+
+Test Files
+=========
+The "test" folder contains test files for each compiler (name denotes for which compiler the test is).
+Ex:
+
+```
+python one.py test/1.txt
+```
+
+[asankarc]:https://github.com/asankarc/simple-compiler

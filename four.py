@@ -3,8 +3,8 @@
 import sys
 
 from lexer.lexer import Lexer
-from errors import EndOfFileError, CompilerSyntaxError, CompilerLexError, TypeNarrowError
-from parsers.type_checking_parser import TCParser
+from errors import EndOfFileError, CompilerSyntaxError, CompilerLexError
+from parsers.tac_parser import TACParser
 
 def process_arguments():
     if len(sys.argv) != 2:
@@ -22,7 +22,7 @@ def main():
 
         try:
             lex = Lexer(filebuffer)
-            parser = TCParser(lex)
+            parser = TACParser(lex)
             parser.P()
 
         except EndOfFileError:
@@ -31,8 +31,6 @@ def main():
         except CompilerSyntaxError as e:
             print e
         except CompilerLexError as e:
-            print e
-        except TypeNarrowError as e:
             print e
 
 if __name__ == '__main__':
